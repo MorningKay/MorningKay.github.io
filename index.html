@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>晨凯的学习小屋</title>
+  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'ZCOOL KuaiLe', cursive;
+      background: linear-gradient(135deg, #ffccdd, #fff5ba, #ccf2ff);
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      color: #333;
+    }
+    @keyframes gradientFlow {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    header {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 1em;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #ff6fa0;
+    }
+    nav {
+      margin-top: 0.5em;
+    }
+    nav a {
+      margin: 0 10px;
+      color: #555;
+      text-decoration: none;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2em auto;
+      background: #fff9f9;
+      padding: 2em;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .avatar {
+      display: block;
+      margin: 0 auto 1em;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #fff0f5;
+    }
+    .intro {
+      text-align: center;
+      font-size: 1.2em;
+      color: #555;
+    }
+    .blog-list {
+      margin-top: 2em;
+    }
+    .blog-post {
+      margin-bottom: 1em;
+      padding: 1em;
+      background: #fff;
+      border-radius: 12px;
+      border-left: 6px solid #ffb6c1;
+    }
+    .blog-post h2 {
+      margin: 0;
+      font-size: 1.4em;
+      color: #ff69b4;
+    }
+    .blog-post p {
+      margin: 0.5em 0 0;
+      color: #666;
+    }
+    footer {
+      margin-top: 3em;
+      text-align: center;
+      padding: 1em;
+      font-size: 0.9em;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>晨凯的学习小屋</h1>
+    <nav>
+      <a href="index.html">主页</a>
+      <a href="post.html">文章</a>
+      <a href="about.html">关于</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <img class="avatar" src="MamoMya_profile.png" alt="我的头像">
+    <div class="intro">
+      欢迎喵友们来到我的学习小屋~ 这里会记录我在学习路上的点点滴滴！(=^･ω･^=)
+    </div>
+
+    <div class="blog-list">
+      <div class="blog-post">
+        <h2>你好呀，这里是晨凯~</h2>
+        <p>我会在这里随缘发一些碎碎念或者记录一些学习笔记，欢迎来看喵~٩(｡・ω・｡)و</p>
+      </div>
+      <!-- 你可以继续添加博客块！ -->
+    </div>
+  </div>
+
+  <footer>
+    © 2025 晨凯的学习小屋 | 喵友万岁！(ฅ'ω'ฅ)
+  </footer>
+</body>
+</html>
