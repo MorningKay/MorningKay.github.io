@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>向量基本知识</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ],
+      throwOnError: false
+    });">
+  </script>
+  <style>
+    body {
+      font-family: 'Baloo 2', 'ZCOOL KuaiLe', sans-serif;
+      background-color: #fffafc;
+      padding: 2em;
+      color: #444;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #ff69b4;
+    }
+    pre {
+      background: #fef0f5;
+      padding: 1em;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    blockquote {
+      border-left: 4px solid #ffb6c1;
+      padding-left: 1em;
+      color: #666;
+    }
+    .back {
+      display: block;
+      margin-top: 2em;
+      text-align: center;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+    <h1>向量与向量空间</h1>
+    <h2>向量的内积</h2>
+    <p>设 $\mathbf{a}=(a_1,a_2,\cdots,a_n),\mathbf{b}=(b_1,b_2,\cdots,b_n)$，则</p>
+    <div>
+        $$
+        <\mathbf{a}, \mathbf{b}> = \mathbf{a}\cdot\mathbf{b}=a_1b_1+a_2b_2+\cdots+a_nb_n
+        $$
+    </div>
+    <p>对任意的$\mathbf{x}, \mathbf{y}\in\mathbb{R}^n$，有</p>
+    <div>
+        $$
+        <\mathbf{x}, \mathbf{y}> = \mathbf{x}^\text{T}\mathbf{y} = \sum_{i=1}^n x_iy_i
+        $$
+    </div>
+    <h2>向量的投影</h2>
+    <p>向量$\mathbf{a}, \mathbf{b}$内积定义：</p>
+    <div>
+        $$
+        \mathbf{a}\cdot\mathbf{b} = |\mathbf{a}||\mathbf{b}|\cos\theta
+        $$
+    </div>
+    <p>假设$\mathbf{b}$为单位向量，$|\mathbf{b}|=1$，则</p>
+    <div>
+        $$
+        \mathbf{a}\cdot\mathbf{b} = |\mathbf{a}|\cos\theta
+        $$
+    </div>
+    <p>几何意义：向量$\mathbf{a}$在向量$\mathbf{b}$方向上的投影长度为$|\mathbf{a}|\cos\theta$。</p>
+    <h3>向量坐标系与投影</h3>
+    <p>二维坐标系的基：$\vec{e}_1=(1,0),\vec{e}_2=(0,1)$，因此，向量$(3,2)$可以完整表示为$(3,2)=3\vec{e}_1+2\vec{e}_2$。即，$(3,2)=<(3,2),\vec{e}_1>\vec{e}_1+<(3,2),\vec{e}_2>\vec{e}_2$。</p>
+    <p>对于$n$维向量$\vec{a}=(a_1,a_2,\cdots,a_n)$，有</p>
+    <div>
+        $$
+        \vec{a}=\sum_{i=1}^n <\vec{a},\vec{e}_i>\vec{e}_i
+        $$
+    </div>
+    
+
+  <a class="back" href="../../../post.html">← 返回文章列表</a>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>可爱小屋上线啦！</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ],
+      throwOnError: false
+    });">
+  </script>
+  <style>
+    body {
+      font-family: 'Baloo 2', 'ZCOOL KuaiLe', sans-serif;
+      background-color: #fffafc;
+      padding: 2em;
+      color: #444;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #ff69b4;
+    }
+    pre {
+      background: #fef0f5;
+      padding: 1em;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    blockquote {
+      border-left: 4px solid #ffb6c1;
+      padding-left: 1em;
+      color: #666;
+    }
+    .back {
+      display: block;
+      margin-top: 2em;
+      text-align: center;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <h1>可爱小屋上线啦！</h1>
+
+  <p>欢迎大家来到晨凯的学习小屋(*≧∀≦*)</p>
+
+  <h2>今天做了什么</h2>
+  <ul>
+    <li>学会了写 HTML</li>
+    <li>加了公式渲染器 KaTeX</li>
+    <li>博客上线咯！</li>
+  </ul>
+
+  <p>测试一下这个公式：</p>
+  <div>
+    $$
+    \int_0^{+\infty} e^{-x^2} dx = \dfrac{\sqrt{\pi}}{2}
+    $$
+  </div>
+
+  <p>再试试看多行公式（align）：</p>
+  <div>
+    $$
+    \begin{align}
+    f(x) &= x^2 + 1 \\
+    g(x) &= \sin(x)
+    \end{align}
+    $$
+  </div>
+
+  <p>测试一下代码：</p>
+  <pre><code class="language-python">
+def Fib(n, memo={}):
+    if n == 0 or n == 1:
+        return 1
+    if n in memo:
+        return memo[n]
+    memo[n] = Fib(n-1, memo) + Fib(n-2, memo)
+    return memo[n]
+  </code></pre>
+
+  <blockquote>
+    未来也要继续加油喵~٩(｡•́‿•̀｡)۶
+  </blockquote>
+
+  <a class="back" href="post.html">← 返回文章列表</a>
+</body>
+</html>

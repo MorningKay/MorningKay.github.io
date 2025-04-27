@@ -1,0 +1,49 @@
+{
+  "碎碎念": {
+    "icon": "📝",
+    "subcategories": {
+      "生活记录": [
+        {
+          "title": "我的第一篇博客：可爱小屋上线啦~",
+          "file": "sundries/test.md"
+        },
+        {
+          "title": "我的第二篇博客：小屋升级啦~",
+          "file": "sundries/t1.html"
+        }
+      ]
+    }
+  },
+  "NLP": {
+    "icon": "🤖",
+    "subcategories": {
+      "模型训练": [
+        {
+          "title": "ChatGLM 微调日记~",
+          "file": "2025-04-24-nlp-finetune.md"
+        }
+      ],
+      "实用技巧": [
+        {
+          "title": "LoRA调参心得",
+          "file": "2025-04-25-lora-tips.md"
+        }
+      ]
+    }
+  },
+  "数学": {
+    "icon": "📐",
+    "subcategories": {
+      "机器学习数学基础": [
+        {
+          "title": "前言",
+          "file": "maths/machine_learning/intro.html"
+        },
+        {
+          "title": "向量基本知识",
+          "file": "maths/machine_learning/vector.html"
+        }
+      ]
+    }
+  }
+}

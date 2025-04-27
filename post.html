@@ -2,29 +2,74 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>晨凯的文章列表</title>
-  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+  <title>晨凯的文章列表 ✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'ZCOOL KuaiLe', cursive;
+      font-family: 'Baloo 2', 'ZCOOL KuaiLe', sans-serif;
       background-color: #fffafc;
       padding: 2em;
       color: #444;
     }
     h1 {
-      color: #ff69b4;
       text-align: center;
+      color: #ff69b4;
     }
-    h2 {
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1em;
+      margin: 1em 0;
+      flex-wrap: wrap;
+    }
+    .tab {
+      cursor: pointer;
+      padding: 0.5em 1em;
+      background-color: #ffe4ec;
+      border-radius: 8px;
+      color: #ff69b4;
+      font-weight: bold;
+    }
+    .tab.active {
+      background-color: #ffb6c1;
+      color: white;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .subcategory {
+      margin: 1em 0;
+    }
+    .subcategory strong {
+      cursor: pointer;
       color: #ff6fa0;
-      margin-top: 2em;
-    }
-    ul {
-      list-style-type: heart;
+      font-size: 1.3em;
+      display: inline-block;
+      position: relative;
       padding-left: 1.5em;
     }
+    .subcategory strong::before {
+      content: '▶';
+      position: absolute;
+      left: 0;
+      top: 0.1em;
+      transition: transform 0.2s;
+    }
+    .subcategory strong.expanded::before {
+      transform: rotate(90deg);
+    }
+    .subcategory ul {
+      margin-left: 1.5em;
+      display: none;
+    }
+    .subcategory ul.show {
+      display: block;
+    }
     li {
-      margin-bottom: 1em;
+      margin: 0.5em 0;
     }
     a {
       color: #ff6fa0;
@@ -39,21 +84,94 @@
       text-align: center;
       color: #aaa;
     }
+    .icon {
+      margin-right: 8px;
+    }
+    #loading {
+      text-align: center;
+      color: #aaa;
+      margin-top: 2em;
+    }
   </style>
 </head>
 <body>
   <h1>晨凯的文章列表 ✨</h1>
 
-  <h2>📝 碎碎念</h2>
-  <ul>
-    <li><a href="2025-04-23-my-first-post.html">我的第一篇博客：可爱小屋上线啦~</a></li>
-  </ul>
-
-  <h2>🤖 NLP</h2>
-  <ul>
-    <li><a href="#">敬请期待喵~(๑˃̵ᴗ˂̵)و</a></li>
-  </ul>
+  <div class="tabs" id="tabs"></div>
+  <div id="tabContents"></div>
+  <div id="loading">喵呜呜，文章列表正在加载中... (≧∀≦)ゞ</div>
 
   <a class="back" href="index.html">← 返回主页</a>
+
+  <script>
+    fetch('posts/posts.json')
+      .then(res => {
+        if (!res.ok) throw new Error('无法加载 posts.json');
+        return res.json();
+      })
+      .then(posts => {
+        // 隐藏加载提示
+        document.getElementById('loading').style.display = 'none';
+
+        const tabsDiv = document.getElementById("tabs");
+        const tabContentsDiv = document.getElementById("tabContents");
+
+        Object.entries(posts).forEach(([category, info], idx) => {
+          const tab = document.createElement("div");
+          tab.className = "tab";
+          tab.innerHTML = `<span class="icon">${info.icon}</span>${category}`;
+          tabsDiv.appendChild(tab);
+
+          const content = document.createElement("div");
+          content.className = "tab-content";
+
+          Object.entries(info.subcategories).forEach(([sub, list]) => {
+            const subDiv = document.createElement("div");
+            subDiv.className = "subcategory";
+
+            const title = document.createElement("strong");
+            title.textContent = sub;
+            subDiv.appendChild(title);
+
+            const ul = document.createElement("ul");
+            list.forEach(post => {
+              const li = document.createElement("li");
+              const isHtml = post.file.endsWith('.html');
+              const href = isHtml
+                ? `posts/${post.file}`
+                : `article.html?file=${post.file}`;
+              li.innerHTML = `<a href="${href}">${post.title}</a>`;
+              ul.appendChild(li);
+            });
+            subDiv.appendChild(ul);
+
+            title.addEventListener('click', () => {
+              ul.classList.toggle('show');
+              title.classList.toggle('expanded');
+            });
+
+            content.appendChild(subDiv);
+          });
+
+          tabContentsDiv.appendChild(content);
+
+          tab.addEventListener("click", () => {
+            document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+            tab.classList.add("active");
+            content.classList.add("active");
+          });
+
+          if (idx === 0) {
+            tab.classList.add("active");
+            content.classList.add("active");
+          }
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById("loading").textContent = '喵呜呜，加载文章失败了喵...(T_T)';
+      });
+  </script>
 </body>
 </html>

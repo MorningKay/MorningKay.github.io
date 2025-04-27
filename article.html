@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>晨凯的可爱文章 ✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    body {
+      font-family: 'Baloo 2', 'ZCOOL KuaiLe', sans-serif;
+      background-color: #fffafc;
+      padding: 2em;
+      color: #444;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #ff69b4;
+    }
+    pre {
+      background: #fef0f5;
+      padding: 1em;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    a {
+      color: #ff6fa0;
+    }
+    .back {
+      display: block;
+      margin-top: 2em;
+      text-align: center;
+      color: #aaa;
+    }
+  </style>
+
+  <!-- MathJax 配置（支持 align） -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        packages: ['base', 'ams']
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '\\[', right: '\\]', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false}
+    ],
+    throwOnError: false
+  });">
+</script>
+
+</head>
+<body>
+  <div id="content">喵呜呜，文章加载中喵~(๑´ㅂ`๑)</div>
+  <a class="back" href="post.html">← 返回文章列表</a>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>
+    marked.setOptions({
+      highlight: function(code, lang) {
+        return hljs.highlightAuto(code, [lang]).value;
+      }
+    });
+
+    function getQueryParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    const mdFile = getQueryParam("file");
+    if (mdFile) {
+      fetch("posts/" + mdFile)
+        .then(res => res.text())
+        .then(text => {
+          document.getElementById("content").innerHTML = marked.parse(text);
+          MathJax.typeset(); // ✨公式登场喵~
+        })
+        .catch(err => {
+          document.getElementById("content").innerText = "喵呜呜，文章加载失败了喵...(T ^ T)";
+        });
+    } else {
+      document.getElementById("content").innerText = "找不到文章喵...你是不是点错了呢？(´･ᴗ･`)";
+    }
+  </script>
+</body>
+</html>
