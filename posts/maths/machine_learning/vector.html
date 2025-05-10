@@ -55,40 +55,106 @@
     <h2>向量的内积</h2>
     <p>设 $\mathbf{a}=(a_1,a_2,\cdots,a_n),\mathbf{b}=(b_1,b_2,\cdots,b_n)$，则</p>
     <div>
-        $$
-        <\mathbf{a}, \mathbf{b}> = \mathbf{a}\cdot\mathbf{b}=a_1b_1+a_2b_2+\cdots+a_nb_n
-        $$
+      $$
+      <\mathbf{a}, \mathbf{b}> = \mathbf{a}\cdot\mathbf{b}=a_1b_1+a_2b_2+\cdots+a_nb_n
+      $$
     </div>
     <p>对任意的$\mathbf{x}, \mathbf{y}\in\mathbb{R}^n$，有</p>
     <div>
-        $$
-        <\mathbf{x}, \mathbf{y}> = \mathbf{x}^\text{T}\mathbf{y} = \sum_{i=1}^n x_iy_i
-        $$
+      $$
+      <\mathbf{x}, \mathbf{y}> = \mathbf{x}^\text{T}\mathbf{y} = \sum_{i=1}^n x_iy_i
+      $$
     </div>
     <h2>向量的投影</h2>
     <p>向量$\mathbf{a}, \mathbf{b}$内积定义：</p>
     <div>
-        $$
-        \mathbf{a}\cdot\mathbf{b} = |\mathbf{a}||\mathbf{b}|\cos\theta
-        $$
+      $$
+      \mathbf{a}\cdot\mathbf{b} = |\mathbf{a}||\mathbf{b}|\cos\theta
+      $$
     </div>
     <p>假设$\mathbf{b}$为单位向量，$|\mathbf{b}|=1$，则</p>
     <div>
-        $$
-        \mathbf{a}\cdot\mathbf{b} = |\mathbf{a}|\cos\theta
-        $$
+      $$
+      \mathbf{a}\cdot\mathbf{b} = |\mathbf{a}|\cos\theta
+      $$
     </div>
     <p>几何意义：向量$\mathbf{a}$在向量$\mathbf{b}$方向上的投影长度为$|\mathbf{a}|\cos\theta$。</p>
     <h3>向量坐标系与投影</h3>
     <p>二维坐标系的基：$\vec{e}_1=(1,0),\vec{e}_2=(0,1)$，因此，向量$(3,2)$可以完整表示为$(3,2)=3\vec{e}_1+2\vec{e}_2$。即，$(3,2)=<(3,2),\vec{e}_1>\vec{e}_1+<(3,2),\vec{e}_2>\vec{e}_2$。</p>
     <p>对于$n$维向量$\vec{a}=(a_1,a_2,\cdots,a_n)$，有</p>
     <div>
-        $$
-        \vec{a}=\sum_{i=1}^n <\vec{a},\vec{e}_i>\vec{e}_i
-        $$
+      $$
+      \vec{a}=\sum_{i=1}^n <\vec{a},\vec{e}_i>\vec{e}_i
+      $$
     </div>
+    <h2>向量空间</h2>
+    <p><strong>定义：</strong>数域$F$和非空集合$V$，定义加法$+$与乘法$\cdot$运算，如果$(V, +, \cdot)$满足以下条件，则称$(V, +, \cdot)$为$F$上的向量空间，或者线性空间，简记为$V$。</p>
+    <p><strong>性质：</strong>
+    <ul>
+      <li>
+        加法封闭性：对$\forall\mathbf{u},\mathbf{v}\in V$，有$\mathbf{u}+\mathbf{v}\in V$。
+      </li>
+      <li>
+        数乘封闭性：对$\forall\mathbf{u}\in V$，标量$\forall c\in F$，有$c\cdot\mathbf{u}\in V$。
+      </li>
+      <li>
+        加法交换律：对$\forall\mathbf{u},\mathbf{v}\in V$，有$\mathbf{u}+\mathbf{v}=\mathbf{v}+\mathbf{u}$。
+      </li>
+      <li>
+        加法结合律：对$\forall\mathbf{u},\mathbf{v},\mathbf{w}\in V$，有$(\mathbf{u}+\mathbf{v})+\mathbf{w}=\mathbf{u}+(\mathbf{v}+\mathbf{w})$。
+      </li>
+      <li>
+        数乘结合律：对$\forall\mathbf{u}\in V$，标量$\forall a,b\in F$，有$a\cdot(b\cdot\mathbf{u})=(a\cdot b)\cdot\mathbf{u}$。
+      </li>
+      <li>
+        数乘分配律：对$\forall\mathbf{u},\mathbf{v}\in V$，标量$\forall a\in F$，有$a\cdot(\mathbf{u}+\mathbf{v})=a\cdot\mathbf{u}+a\cdot\mathbf{v}$。
+      </li>
+      <li>
+        存在加法0元，逆元，即$\exists\mathbf{0}\in V, -\mathbf{v}\in V$，使得$\mathbf{v}+\mathbf{0}=\mathbf{v}, \mathbf{v}+(-\mathbf{v})=0$。
+      </li>
+      <li>
+        存在单位元1，即$\forall\mathbf{v}\in V$，有$1\cdot\mathbf{v}=\mathbf{v}$。
+      </li>
+    </ul>
+    </p>
+    <h3>向量子空间</h3>
+    <p>设$(V,+,\cdot)$为向量空间，$U$为$V$的非空子集，如果$U$按$V$中加法“$+$”，数乘“$\cdot$”运算构成向量空间，则称$U$为$V$的子空间。即子空间$U$对$V$中加法与数乘满足封闭性</p>
+    <ul>
+      <li>
+        $\mathbb{R}^2$中通过原点的直线是$\mathbb{R}^2$的一维子空间
+      </li>
+      <li>
+        $\mathbb{R}^3$中通过原点的平面是$\mathbb{R}^3$的二维子空间
+      </li>
+    </ul>
+    <h3>生成集与张成集</h3>
+    <p>设$V$是向量空间，记$A=\{x_1,\cdots,x_k\}$是$V$的子集，若$V$中任意元素$v\in V$，均可由$x_1,\cdots,x_k$线性表示，则称$A$为$V$的一个生成集。即</p>
+    <div>
+      $$
+        v=c_1x_1+\cdots+c_kx_k, \quad 其中c_1,\cdots,c_k为常数
+      $$
+    </div>
+    <p>集合$V=\text{span}\{A\}=\{c_1x_1+\cdots+c_kx_k\}=\text{span}\{x_1,\cdots,x_k\}$，称为$A$的张成集</p>
+    <p>若不存在集合$B$，满足$B\subseteq A\subseteq V$，且$B$是$V$的生成集，则称$A$是$V$的最小生成集</p>
+    <h3>基与维数</h3>
+    <p>设$V$是向量空间，$A=\{x_1,\cdots,x_k\}$是$V$的最小生成集，则称$x_1,\cdots,x_k$为$V$的一组基。$x_1,\cdots,x_k$为基向量。$k$为$V$的维度，记为$\text{dim}(V)=k$</p>
+    <strong>子空间的交与和</strong>
+    <p>设$V_1,V_2$是向量空间$V$的两个子空间</p>
+    <ul>
+      <li>
+        $V_1$与$V_2$的交：$V_1\cap V_2=\{x\in V | x\in V_1, x\in V_2\}$
+      </li>
+      <li>
+        $V_1$与$V_2$的和：$V_1+V_2=\{x+y\in V | x\in V_1, y\in V_2\}$
+      </li>
+      <li>
+        $\text{dim}(V_1)+\text{dim}(V_2)=\text{dim}(V_1\cap V_2)+\text{dim}(V_1+V_2)$
+      </li>
+    </ul>
+    <h3>直和</h3>
+    <p>设$V_1,V_2$是向量空间$V$的两个子空间，若$V_1+V_2$中任意向量只能唯一表示为$V_1$中向量和$V_2$中向量之和，则称$V_1+V_2$为$V_1,V_2$的直和，记为$V_1\oplus V_2$，$V_1,V_2$又称为互补子空间</p>
+    <p>$V_1+V_2$是直和，等价于$V_1\cap V_2=\{0\}$，等价于$\text{dim}(V_1)+\text{dim}(V_2)=\text{dim}(V_1+V_2)$</p>
     
-
   <a class="back" href="../../../post.html">← 返回文章列表</a>
 </body>
 </html>
