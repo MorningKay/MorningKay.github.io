@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>向量基本知识</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ],
+      throwOnError: false
+    });">
+  </script>
+  <style>
+    body {
+      font-family: 'Baloo 2', 'ZCOOL KuaiLe', sans-serif;
+      background-color: #fffafc;
+      padding: 2em;
+      color: #444;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #ff69b4;
+    }
+    pre {
+      background: #fef0f5;
+      padding: 1em;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    blockquote {
+      border-left: 4px solid #ffb6c1;
+      padding-left: 1em;
+      color: #666;
+    }
+    .back {
+      display: block;
+      margin-top: 2em;
+      text-align: center;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+    <h1>矩阵的基本知识</h1>
+
+    <h2>稀疏矩阵</h2>
+
+    <p>定义：矩阵中非零元素的个数远远小于矩阵元素的总数</p>
+
+    <p>存储方式：用三元组来表示，分别是（行号，列号，数值）</p>
+
+    <h3>图像数据集：数字图像的表示</h3>
+
+    <div>
+        $$
+            f(x,y)=
+            \begin{bmatrix}
+                f(0,0) & f(0,1) & \cdots & f(0,N-1) \\
+                f(1,0) & f(1,1) & \cdots & f(1,N-1) \\
+                \vdots & \vdots & \ddots & \vdots \\
+                f(M-1,0) & f(M-1,1) & \cdots & f(M-1,N-1)
+            \end{bmatrix}
+        $$
+    </div>
+
+    <p>这个表达式的右侧定义了一幅数字图像，矩阵中的每个元素称为图像元素。</p>
+
+    <ul>
+        <li>
+            大小为$M\times N$的图像：二维函数$f(x,y)$
+        </li>
+        <li>
+            $(x,y)$为坐标，$f(x,y)$为坐标值，也即为像素值
+        </li>
+        <li>
+            灰度图：$M\times N$，$f(i,j)=c$<br>
+            彩色图：$M\times N\times 3$，$f(i,j)=(r,g,b)$
+        </li>
+        <li>
+            其中，像素值的大小范围为$[0,255]$的整数值
+        </li>
+    </ul>
+
+    <h2>奇异值分解(SVD)</h2>
+
+    <p>假设$A\in\mathbb{R}^{m\times n},\text{rank}(A)=r$，那么$A$可以因式分解为</p>
+
+    <div>
+        $$
+            A=U\Sigma V^\text{T}
+        $$
+    </div>
+
+    <p>其中$U\in\mathbb{R}^{m\times r}$满足$U^\text{T}U=I$，$V\in\mathbb{R}^{n\times r}$满足$V^\text{T}V=I$，$\Sigma=\text{diag}(\sigma_1,\cdots,\sigma_r)$，$\sigma_i$则称为奇异值，其中$u_i\in\mathbb{R}^m$是左奇异向量，$v_i\in\mathbb{R}^n$是右奇异向量</p>
+
+    <h3>求解步骤</h3>
+
+    <ul>
+        <li>
+            构造对称方阵：$A^\text{T}A$
+        </li>
+        <li>
+            对其进行特征分解：
+            <div>
+                $$
+                \begin{align*}
+                    & A^\text{T}Av_i=\lambda_i v_i, \\
+                    & V'=[v_1,\cdots,v_r]
+                \end{align*}
+                $$
+            </div>
+        </li>
+        <li>
+            同样构造对称方阵：$AA^\text{T}$
+        </li>
+        <li>
+            对其进行特征分解：
+            <div>
+                $$
+                \begin{align*}
+                    & AA^\text{T}u_i=\lambda_i u_i, \\
+                    & U'=[u_1,\cdots,u_r]
+                \end{align*}
+                $$
+            </div>
+        </li>
+    </ul>
+
+    <h3>证明</h3>
+    <ul>
+        <li>
+            根据定义可知，$A=U\Sigma V^\text{T}$
+        </li>
+        <li>
+            对其转置可得，$A^\text{T}=V\Sigma^\text{T}U^\text{T}$
+        </li>
+        <li>
+            二者相乘可得，$A^\text{T}A=V\Sigma^2 V^\text{T}$
+        </li>
+        <li>
+            $A^\text{T}A$的特征向量：分解唯一$V'\Lambda V'^{-1}$
+        </li>
+        <li>
+            $V=V'$，且$V'^{-1}=V^\text{T}$，即是所求的$V$矩阵，满足$V^\text{T}V=I$
+        </li>
+        <li>
+            同理$AA^\text{T}$的特征向量组$U'$，即是所求的$U$矩阵，满足$U^\text{T}U=I$
+        </li>
+        <li>
+            $\Sigma^2=\Lambda, \sigma_i=\sqrt{\lambda_i}$
+        </li>
+    </ul>
+
+    <p><strong>性质：</strong>当矩阵的秩为$k$时，奇异值分解可以写成</p>
+    
+    <div>
+        $$
+            A_{m\times n}=U_{m\times m}\Sigma_{m\times n}V_{n\times n}^\text{T}\approx A_{m\times n}=U_{m\times k}\Sigma_{k\times k}V_{k\times n}^\text{T}
+        $$
+    </div>
+
+    <p>例：求矩阵$A$的SVD分解，$A=\begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 0 \end{bmatrix}$</p>
+
+    <p></p>
+
+    <p>首先求出$A^\text{T}A$和$AA^\text{T}$</p>
+
+    <div>
+        $$
+            \begin{align*}
+                & A^\text{T}A=
+                \begin{bmatrix} 0 & 1 & 1 \\ 1 & 1 & 0 \end{bmatrix} 
+                \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 0 \end{bmatrix}=
+                \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix} \\
+                & AA^\text{T}=
+                \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 0 \end{bmatrix} 
+                \begin{bmatrix} 0 & 1 & 1 \\ 1 & 1 & 0 \end{bmatrix}=
+                \begin{bmatrix} 1 & 1 & 0 \\ 1 & 2 & 1 \\ 0 & 1 & 1 \end{bmatrix}
+            \end{align*}
+        $$
+    </div>
+    
+    <p>进而求出$A^\text{T}A$的特征值和特征向量</p>
+    
+    <div>
+        $$
+            \begin{align*}
+                & \lambda_1=3, v_1=\begin{bmatrix} 1/\sqrt{2} \\ 1/\sqrt{2} \end{bmatrix} \\
+                & \lambda_2=1, v_2=\begin{bmatrix} -1/\sqrt{2} \\ 1/\sqrt{2} \end{bmatrix}
+            \end{align*}
+        $$
+    </div>
+
+    <p>接着求出$AA^\text{T}$的特征值和特征向量</p>
+
+    <div>
+        $$
+            \begin{align*}
+                & \lambda_1=3, u_1=\begin{bmatrix} 1/\sqrt{6} \\ 2/\sqrt{6} \\ 1/\sqrt{6} \end{bmatrix} \\
+                & \lambda_2=1, u_2=\begin{bmatrix} 1/\sqrt{2} \\ 0 \\ -1/\sqrt{2} \end{bmatrix} \\
+                & \lambda_3=0, u_3=\begin{bmatrix} 1/\sqrt{3} \\ -1/\sqrt{3} \\ 1/\sqrt{3} \end{bmatrix}
+            \end{align*}
+        $$
+    </div>
+
+    <p>用$\sigma_i=\sqrt{\lambda_i}$直接求出奇异值为$\sqrt{3}$和$1$</p>
+
+    <div>
+        $$
+            A=U\Sigma V^\text{T}=
+            \begin{bmatrix} 1/\sqrt{6} & 1/\sqrt{2} & 1/\sqrt{3} \\ 2/\sqrt{6} & 0 & -1/\sqrt{3} \\ 1/\sqrt{6} & -1/\sqrt{2} & 1/\sqrt{3} \end{bmatrix}
+            \begin{bmatrix} \sqrt{3} & 0 \\ 0 & 1 \\ 0 & 0 \end{bmatrix}
+            \begin{bmatrix} 1/\sqrt{2} & 1/\sqrt{2} \\ -1/\sqrt{2} & 1/\sqrt{2} \end{bmatrix}
+        $$
+    </div>
+    
+  <a class="back" href="../../../post.html">← 返回文章列表</a>
+</body>
+</html>

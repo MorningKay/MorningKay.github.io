@@ -42,6 +42,10 @@
         {
           "title": "向量基本知识",
           "file": "maths/machine_learning/vector.html"
+        },
+        {
+          "title": "矩阵基本知识",
+          "file": "maths/machine_learning/matrix.html"
         }
       ]
     }
