@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>向量基本知识</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ],
+      throwOnError: false
+    });">
+  </script>
+  <style>
+    body {
+      font-family: 'Baloo 2', 'ZCOOL KuaiLe', sans-serif;
+      background-color: #fffafc;
+      padding: 2em;
+      color: #444;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #ff69b4;
+    }
+    pre {
+      background: #fef0f5;
+      padding: 1em;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    blockquote {
+      border-left: 4px solid #ffb6c1;
+      padding-left: 1em;
+      color: #666;
+    }
+    .back {
+      display: block;
+      margin-top: 2em;
+      text-align: center;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+    <h1>空间</h1>
+    
+    <p>把多个元素放在一起就构成了集合，如$\{x_1,\cdots,x_n\}$，但集合是松散的，还需要定义元素之间的“关系”或者“结构”，构成空间=集合+结构。</p>
+
+    <h2>度量空间：集合+拓扑结构</h2>
+
+    <p>定义了元素间距离$d(x,y)$的空间，使空间中元素之间可以测量相互的远近程度。设$X$使非空集合，存在距离函数$d(x,y)$满足以下条件：</p>
+
+    <ul>
+        <li>非负性：$d(x,y)\geq 0$</li>
+        <li>非退化性：$d(x,y)=0 \Leftrightarrow x=y$</li>
+        <li>对称性：$d(x,y)=d(y,x)$</li>
+        <li>三角不等式：$d(x,y)+d(y,z)\geq d(x,z)$</li>
+    </ul>
+
+    <p>则称$(X,d)为度量空间$</p>
+
+    <p>度量空间也是线性空间，满足加法与数乘</p>
+
+    <h2>内积空间</h2>
+
+    <p>度量向量的乘积，向量的夹角等性质</p>
+
+    <p>定义：设$<.,.>$是$V\times V\rightarrow R$为二元实值函数，若对任意$x,y,z\in V,k\in R$，$<.,.>$满足以下四个条件</p>
+
+    <ul>
+        <li>对称性：$<x,y>=<y,x>$</li>
+        <li>齐次性：$<kx,y>=<y,x>$</li>
+        <li>可加性：$<x+y,z>=<x,z>+<y,z>$</li>
+        <li>正定性：$<x,x>\geq 0$，且$x=0$时，$<x,x>=0$</li>
+    </ul>
+
+    <p>则称$<.,.>$为$V$的内积，定义了内积的线性空间$V$称为内积空间=线性空间+内积。内积的定义方式不唯一，只要符合以上四种性质即可。</p>
+
+    <p>例：</p>
+
+    <ol>
+        <li>
+            欧几里得空间$\mathbb{R}^n$：在$\mathbb{R}^n$中，标准内积（点积）定义为：
+            <div>
+                $$<\mathbf{u},\mathbf{v}>=\mathbf{u}\cdot\mathbf{v}=\sum_{i=1}^nu_iv_i$$
+            </div>
+        </li>
+        <li>
+            连续函数空间$C[a,b]$的内积：对于$f(x),g(x)\in C[a,b]$，其内积定义为：
+            <div>
+                $$< f(x),g(x) >=\int_a^b f(x)g(x)\text{d}x$$
+            </div>
+        </li>
+    </ol>
+    
+    <h2>Cauchy-Schwarz不等式</h2>
+
+    <p>设$V$是$R$上的线性空间，$<.,.>$是$V$上的内积，若任意$x,y\in V$，有</p>
+
+    <div>
+        $$|< x,y >|\leq|x|\cdot|y|$$
+    </div>
+
+    <p>定义：正交变换。设$V$是内积空间，$\phi:V\rightarrow V$线性变换，若任意$x,y\in V$，有</p>
+
+    <div>
+        $$< x,y >=< \phi(x),\phi(y) >$$
+    </div>
+    
+    <p>则称$\phi$为$V$上的正交变换</p>
+
+    <h2>正交与正交补空间</h2>
+
+    <h3>向量正交</h3>
+
+    <p>称向量$x,y\in\mathbb{R}^n$相互正交，当且仅当$x^\text{T}y=0$成立。两个正交向量若均为非零向量，则这两个向量必然线性无关。给定行向量矩阵$A=\begin{bmatrix} a_1 \\ \vdots \\ a_m \end{bmatrix}$及线性方程组$Ax=\begin{bmatrix} a_1 \\ \vdots \\ a_m \end{bmatrix}x=0$，则$x$与矩阵$A$的所有行向量正交。</p>
+
+    <h3>正交子空间</h3>
+
+    <p>设$V$是内积空间，$W,W_1,W_2$是$V$的子空间，</p>
+
+    <ul>
+        <li>如果$x\in V$，且与$W$中所有向量正交，则称$x$与$W$正交，记为$x\perp W$</li>
+        <li>如果$W_1$中所有向量均正交于子空间$W_2$，则称$W_1$与$W_2$正交，记为$W_1\perp W_2$</li>
+        <li>$V$中所有与$W$正交的向量集合为$W$的正交补，记为$W^\perp$，即$W^\perp=\{v\in V|x\perp y,\forall y\in W\}$，且满足$V=W\oplus W^\perp$，$W^\perp$唯一</li>
+    </ul>
+
+    <h2>矩阵的四个空间</h2>
+
+    <p>给定矩阵$A\in\mathbb{R}^{m\times n},(\mathbf{u}_1,\cdots,\mathbf{u}_n),(\mathbf{v}_1,\cdots,\mathbf{v}_m)$分别为$A,A^\text{T}$的列向量组，$\text{rank}(A)=k$，定义如下四个子空间</p>
+    
+    <ul>
+        <li>列空间$C(A)$：$A$的列向量组张成的空间，$C(A)=\text{span}\{\mathbf{u}_1,\cdots,\mathbf{u}_n\},\text{dim}(C(A))=r$</li>
+        <li>行空间$C(A^\text{T})$：$A^\text{T}$的行向量组张成的空间，$C(A^\text{T})=\text{span}\{\mathbf{v}_1,\cdots,\mathbf{v}_m\},\text{dim}(C(A^\text{T}))=r$</li>
+        <li>零空间$N(A)$：$Ax=0$的解空间，$N(A)=\{x|Ax=0\},\text{dim}(N(A))=n-r$</li>
+        <li>左零空间$N(A^\text{T})$：$A^\text{T}x=0$的解空间，$N(A^\text{T})=\{x|A^\text{T}x=0\},\text{dim}(N(A^\text{T}))=m-r$</li>
+    </ul>
+
+    <p>$\forall x\in N(A)$，由$Ax=0$，可得$N(A)\perp C(A^\text{T}),\text{dim}(C(A^\text{T}))+\text{dim}(N(A))=n$，因此，$N(A)$是$C(A^\text{T})$的正交补：$N(A)^\perp=C(A^\text{T}),N(A)\oplus C(A^\text{T})=\mathbb{R}^n$</p>
+
+    <p>同理，$N(A^\text{T})$是$C(A)$的正交补：$N(A^\text{T})^\perp=C(A),N(A^\text{T})\oplus C(A)=\mathbb{R}^m$</p>
+
+    <h3>基本子空间与映射</h3>
+
+    <p>给定矩阵=$[\mathbf{u}_1,\cdots,\mathbf{u}_n]\in\mathbb{R}^{m\times n}$，定义以下线性映射</p>
+
+    <div>
+        $$\phi:\mathbb{R}^n\rightarrow\mathbb{R}^m,x\rightarrow Ax$$
+    </div>
+
+    <p>则像集$\phi(\mathbb{R}^n)=\{Ax|x\in\mathbb{R}^n\}=\text{span}\{\mathbf{u}_1,\cdots,\mathbf{u}_n\}=\{\sum_{i=1}^nx_iu_i|x_i\in\mathbb{R}\}\subseteq\mathbb{R}^m$</p>
+
+    <p>则像集$\phi(\mathbb{R}^n)=C(A),\text{Ker}(\phi)=N(A)$</p>
+
+    <h2>仿射子空间与仿射映射</h2>
+
+    <p>欧氏空间与向量空间中的向量或子空间都要求经过原点，现实中有许多不需要经过原点的向量与平面，因此需要利用向量空间或者欧氏空间构造出一个更贴近现实的空间：仿射空间</p>
+
+    <h3>仿射空间</h3>
+    <p>定义：设$V$是域$\mathbb{K}$上的$n$维向量空间，$\mathbb{A}$是一个非空集合，$\mathbb{A}$中的元素称为点，存在满足以下条件的加法映射：</p>
+    
+    <p>加法映射$+$：</p>
+    <ul>
+        <li>$\mathbb{A}\times V\rightarrow \mathbb{A}$</li>
+        <li>$(\dot{p},\mathbf{x})$\longmapsto\dot{p}+\mathbf{x}\in\mathbb{A}$</li>
+    </ul>
+
+    <p>条件：</p>
+
+    <ul>
+        <li>$\forall\mathbf{x},\mathbf{y}\in V$及$\dot{p}\in\mathbb{A}$，有$(\dot{p}+\mathbf{x})+\mathbf{y}=\dot{p}+(\mathbf{x}+\mathbf{y})$</li>
+        <li>$\forall \dot{p}\in\mathbb{A},\dot{p}+\mathbf{0}=\dot{p}$</li>
+        <li>$\forall\dot{p},\dot{q}\in\mathbb{A}$，存在唯一的$\mathbf{x}\in V$使得$\dot{p}+\mathbf{x}=\dot{q}$</li>
+    </ul>
+
+    <p>则称$\mathbb{A}$是一个与$V$相伴的仿射空间(affine space)，$\mathbb{A}$的维数$\text{dim}(\mathbb{A})=\text{dim}(V)=n$</p>
+
+    <h3>仿射子空间</h3>
+    <p>定义：设$V$是$n$维向量空间，$x_0\in V$，$U$是$V$的子空间，则子集合$L=x_0+U=\{x_0+u|u\in U\}$称为$V$的仿射子空间，$U$称为方向空间，$x_0$称为支持点，且$\text{dim}(L)=\text{dim}(U)$</p>
+
+    <h3>仿射子空间参数表示</h3>
+    <p>如果$(\mathbf{b}_1,\cdots,\mathbf{b}_k)$是$U$的一组基，则$forall x\in L$均能唯一地表示为$x=x_0+t_1b_1+\cdots+t_kb_k$，其中$t_k\in R$</p>
+
+    <p>例：一维仿射子空间为直线：$y=x_0+tx_1$</p>
+    <p>例：二维仿射子空间为平面：$y=x_0+t_1x_1+t_2x_2$</p>
+
+    <h3>仿射映射</h3>
+    <p>设$V,W$是向量空间，$\phi:V\rightarrow W$是线性映射，$\mathbf{b}\in W$，则映射$T:V\rightarrow W,\mathbf{x}\rightarrow \mathbf{b}+\phi(\mathbf{x})$称为$V$到$W$的仿射映射。$\mathbf{b}$称为$\phi$的平移向量，记为：$T(\mathbf{x})=A\mathbf{x}+\mathbf{b}$</p>
+
+    <p>线性映射：$f(x)=Ax$，是仿射映射的特例</p>
+
+    <ul>
+      <li>
+        线性映射：
+        <ul>
+          <li>线性映射保持原点不变，即$f(\mathbf{0})=\mathbf{0}$</li>
+          <li>线性映射只能描述缩放、旋转、剪切等线性变换，不能描述平移</li>
+        </ul>
+      </li>
+      <li>
+        仿射映射：
+        <ul>
+          <li>仿射映射不要求保持原点不变，即$f(\mathbf{0})=\mathbf{b}$</li>
+          <li>仿射映射可以描述平移、缩放、旋转、剪切等更一般的几何变换</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>例子</p>
+    <ol>
+      <li>平移：
+        <ul>
+          <li>平移是仿射映射的特例，线性变换矩阵$\mathbf{A}$是单位矩阵，平移向量$\mathbf{b}$是非零向量</li>
+          <li>例如：$f(\mathbf{x})=\mathbf{x}+\mathbf{b}$</li>
+        </ul>
+      </li>
+      <li>旋转
+        <ul>
+          <li>旋转是仿射映射的特例，平移向量$\mathbf{b}=\mathbf{0}$，线性变换矩阵$\mathbf{A}$是旋转矩阵</li>
+          <li>例如，在二维空间中，绕原点旋转角度$\theta$的仿射映射为：$f(\mathbf{x})=\begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{bmatrix}\mathbf{x}$</li>
+        </ul>
+      </li>
+    </ol>
+
+  <a class="back" href="../../../post.html">← 返回文章列表</a>
+</body>
+</html>

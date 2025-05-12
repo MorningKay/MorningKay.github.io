@@ -52,8 +52,8 @@
           "file": "maths/machine_learning/mapping.html"
         },
         {
-          "title": "内积空间",
-          "file": "maths/machine_learning/inner_dot_space.html"
+          "title": "空间",
+          "file": "maths/machine_learning/space.html"
         }
       ]
     }
