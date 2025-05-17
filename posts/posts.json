@@ -54,6 +54,10 @@
         {
           "title": "空间",
           "file": "maths/machine_learning/space.html"
+        },
+        {
+          "title": "多变量微分",
+          "file": "maths/machine_learning/multi_diff.html"
         }
       ]
     }

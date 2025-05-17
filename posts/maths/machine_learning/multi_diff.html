@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>向量基本知识</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ],
+      throwOnError: false
+    });">
+  </script>
+  <style>
+    body {
+      font-family: 'Baloo 2', 'ZCOOL KuaiLe', sans-serif;
+      background-color: #fffafc;
+      padding: 2em;
+      color: #444;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #ff69b4;
+    }
+    pre {
+      background: #fef0f5;
+      padding: 1em;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    blockquote {
+      border-left: 4px solid #ffb6c1;
+      padding-left: 1em;
+      color: #666;
+    }
+    .back {
+      display: block;
+      margin-top: 2em;
+      text-align: center;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+    <h1>函数极限与连续性</h1>
+
+    <h2>函数的Lipschitz连续性</h2>
+    <p>比连续更强的条件，不但保证了函数值不间断，而且限定了函数的变化速度。一个函数$f:\mathbb{R}^n\rightarrow\mathbb{R}^m$被称为利普希茨连续，如果存在一个常数$L$（被称为利普希茨常数），使得对于所有的$x,y$，都有：$||f(x)-f(y)||\leq L||x-y||$，这里最小的$L$被称为Lipschitz常数。即函数值之间的变化不会超过这个常数乘以点之间距离。</p>
+
+    <h2>多元向量函数</h2>
+
+    <p>
+      $\mathbf{y}=
+      \begin{bmatrix} 
+        f_1(x_1,x_2,\cdots,x_n) \\ f_2(x_1,x_2,\cdots,x_n) \\ \vdots \\ f_m(x_1,x_2,\cdots,x_n) 
+      \end{bmatrix}$<br>
+      其中，$\mathbf{x}=(x_1,x_2,\cdots,x_n)$为$n$维输入向量，$\mathbf{y}=(y_1,y_2,\cdots,y_m)$为$m$维输出向量。
+    </p>
+
+    <h2>函数的导数与微分</h2>
+
+    <h3>雅可比矩阵(Jacobian Matrix)</h3>
+
+    <p>对多变量向量函数$y=f(x)$，求其偏导数，形成的矩阵，称为雅可比矩阵</p>
+
+    <p>
+      例如
+      $\mathbf{y}=\begin{bmatrix} f_1(x_1,x_2,\cdots,x_n) \\ f_2(x_1,x_2,\cdots,x_n) \\ \vdots \\ f_m(x_1,x_2,\cdots,x_n) \end{bmatrix},
+      J=
+      \begin{bmatrix} 
+        \dfrac{\partial f_1}{\partial x_1} & \dfrac{\partial f_1}{\partial x_2} & \cdots & \dfrac{\partial f_1}{\partial x_n} \\[2.5ex] 
+        \dfrac{\partial f_2}{\partial x_1} & \dfrac{\partial f_2}{\partial x_2} & \cdots & \dfrac{\partial f_2}{\partial x_n} \\[2.5ex] 
+        \vdots & \vdots & \ddots & \vdots \\[2.5ex] 
+        \dfrac{\partial f_m}{\partial x_1} & \dfrac{\partial f_m}{\partial x_2} & \cdots & \dfrac{\partial f_m}{\partial x_n} 
+      \end{bmatrix}$
+    </p>
+
+    <h3>Hessian矩阵</h3>
+
+    <p>对多变量函数$F=f(x_1,x_2,\cdots,x_n)$，求其二阶偏导数形成的矩阵就称为Hessian矩阵</p>
+
+    <p>
+      $H_F(x)=
+      \begin{bmatrix} 
+      \dfrac{\partial^2 F}{\partial x_1^2} & \dfrac{\partial^2 F}{\partial x_1x_2} & \cdots & \dfrac{\partial^2 F}{\partial x_1x_n} \\[2.5ex] 
+      \dfrac{\partial^2 F}{\partial x_2x_1} & \dfrac{\partial^2 F}{\partial x_2^2} & \cdots & \dfrac{\partial^2 F}{\partial x_2x_n} \\[2.5ex] 
+      \vdots & \vdots & \ddots & \vdots \\[2.5ex] \dfrac{\partial^2 F}{\partial x_nx_1} & \dfrac{\partial^2 F}{\partial x_nx_2} & \cdots & \dfrac{\partial^2 F}{\partial x_n^2} 
+      \end{bmatrix}$
+    </p>
+
+    <h3>链式求导法则</h3>
+
+    <p>例：关于权重$w_1,w_2,w_3,w_4,w_5,w_6$求导，</p>
+    <p>$y_1=w_1x_1+w_2x_2, \quad y_2=w_3x_1+w_4x_2$</p>
+    <p>$f_1(y_1)=\dfrac{1}{1+e^{-y_1}}, \quad f_2(y_2)=\dfrac{1}{1+e^{-y_2}}$</p>
+    <p>$y_3=w_5f_1+w_6f_2, \quad f_3(y_3)=\dfrac{1}{1+e^{-y_3}}$</p>
+    <p>$y=(z-f_3)^2$</p>
+    <p>分别求$\dfrac{dy}{dw_1},\dfrac{dy}{dw_3},\dfrac{dy}{dw_5}$</p>
+
+    <p>解：<br>$f(x)=\dfrac{1}{1+e^{-x}}$</p>
+    <p>$f'(x)=f(x)(1-f(x))$</p>
+    <p>$\dfrac{\partial y}{\partial w_1}=\dfrac{\partial y}{\partial f_3}\dfrac{\partial f_3}{\partial y_3}\dfrac{\partial y_3}{\partial f_1}\dfrac{\partial f_1}{\partial y_1}\dfrac{\partial y_1}{\partial w_1}=-2(z-f_3)f_3(1-f_3)w_5f_1(1-f_1)x_1$</p>
+    <p>$\dfrac{\partial y}{\partial w_3}=\dfrac{\partial y}{\partial f_3}\dfrac{\partial f_3}{\partial y_3}\dfrac{\partial y_3}{\partial f_2}\dfrac{\partial f_2}{\partial y_2}\dfrac{\partial y_2}{\partial w_3}=-2(z-f_3)f_3(1-f_3)w_6f_2(1-f_3)x_1$</p>
+    <p>$\dfrac{\partial y}{\partial w_5}=\dfrac{\partial y}{\partial f_3}\dfrac{\partial f_3}{\partial y_3}\dfrac{\partial y_3}{\partial w_5}=-2(z-f_3)f_3(1-f_3)f_1$</p>
+
+    <h3>二元函数泰勒展开</h3>
+
+    <p>二元函数在点$(x_k,y_k)$处的泰勒展开式为：</p>
+
+    <div>
+      $$
+      \begin{align*}
+      f(x,y) & = f(x_k,y_k)+(x-x_k)f_x'(x_k,y_k)+(y-y_k)f_y'(x_k,y_k) \\
+      & +\dfrac{1}{2!}(x-x_k)^2f_{xx}''(x_k,y_k)+\dfrac{1}{2!}(x-x_k)(y-y_k)f_{xy}''(x_k,y_k) \\
+      & +\dfrac{1}{2!}(x-x_k)(y-y_k)f_{yx}''(x_k,y_k)+\dfrac{1}{2!}(y-y_k)^2f_{yy}''(x_k,y_k)+\cdots+o^n
+      \end{align*}
+      $$
+    </div>
+
+    <p>写成矩阵的形式：</p>
+
+    <div>
+      $$
+      \begin{align*}
+      f(x,y) & = f(x_k,y_k)+\begin{bmatrix} f_x'(x_k,y_k) & f_y'(x_k,y_k) \end{bmatrix}\begin{bmatrix} x-x_k \\ y-y_k \end{bmatrix} \\
+      & + \dfrac{1}{2!}\begin{bmatrix} x-x_k & y-y_k \end{bmatrix}
+      \begin{bmatrix} f_{xx}''(x_k,y_k) & f_{xy}''(x_k,y_k) \\ f_{yx}''(x_k,y_k) & f_{yy}''(x_k,y_k) \end{bmatrix}
+      \begin{bmatrix} x-x_k \\ y-y_k \end{bmatrix}+\cdots+o^n
+      \end{align*}
+      $$
+    </div>
+
+    <p>多元函数(n)在点$x_k$处的泰勒展开式为：</p>
+
+    <div>
+      $$
+      \begin{align*}
+      f(x^1,x^2,\cdots,x^n) & = f(x_k^1,x_k^2,\cdots,x_k^n)+\sum_{i=1}^n(x_i-x_k^i)f_{x^i}'(x_k^1,x_k^2,\cdots,x_k^n) \\
+      & +\dfrac{1}{2!}\sum_{i=1}^n\sum_{j=1}^n(x_i-x_k^i)(x_j-x_k^j)f_{x^ix^j}''(x_k^1,x_k^2,\cdots,x_k^n)+\cdots+o^n
+      \end{align*}
+      $$
+    </div>
+
+    <p>写成矩阵的形式：</p>
+
+    <div>
+      $$
+      \begin{align*}
+      & f(\mathbf{x})=f(\mathbf{x}_k)+[\nabla f(\mathbf{x}_k)]^\text{T}(\mathbf{x}-\mathbf{x}_k)+\dfrac{1}{2!}[\mathbf{x}-\mathbf{x}_k]^\text{T}H(\mathbf{x}_k)[\mathbf{x}-\mathbf{x}_k]+\cdots+o^n \\
+      & H(\mathbf{x}_k)=\begin{bmatrix} \dfrac{\partial^2 f(x_k)}{\partial x_1^2} & \dfrac{\partial^2 f(x_k)}{\partial x_1x_2} & \cdots & \dfrac{\partial^2 f(x_k)}{\partial x_1x_n} \\[2.5ex] \dfrac{\partial^2 f(x_k)}{\partial x_2x_1} & \dfrac{\partial^2 f(x_k)}{\partial x_2^2} & \cdots & \dfrac{\partial^2 f(x_k)}{\partial x_2x_n} \\[2.5ex] \vdots & \vdots & \ddots & \vdots \\[2.5ex] \dfrac{\partial^2 f(x_k)}{\partial x_nx_1} & \dfrac{\partial^2 f(x_k)}{\partial x_nx_2} & \cdots & \dfrac{\partial^2 f(x_k)}{\partial x_n^2} \end{bmatrix}
+      \end{align*}
+      $$
+    </div>
+
+    <h2>范数</h2>
+
+    <p>范数(Norm)，是一种函数，衡量向量矩阵的长度或大小，属于向量长度的推广，记作$||.||$，分为向量范数和矩阵范数。</p>
+
+    <h3>向量范数</h3>
+
+    <p>向量范数满足三个条件</p>
+
+    <ul>
+      <li>非负性：对于任意一个向量$\mathbf{x}$，其范数必须是非负的，即$||\mathbf{x}||\geq 0$</li>
+      <li>齐次性：对于任意一个向量$\mathbf{x}$和一个标量$c$，有$||c\mathbf{x}||=|c|\cdot||\mathbf{x}||$</li>
+      <li>三角不等式：对于任意两个向量$\mathbf{x}$和$\mathbf{y}$，有$||\mathbf{x}+\mathbf{y}||\leq||\mathbf{x}||+||\mathbf{y}||$</li>
+    </ul>
+
+    <p>常用向量范数</p>
+
+    <ul>
+      <li>$L_1$范数：$||\mathbf{x}||_1=|x_1|+\cdots+|x_n|$</li>
+      <li>$L_0$范数：向量中的非0个数，$||\mathbf{x}||_0=\#(x)$</li>
+      <li>$L_2$范数：$||\mathbf{x}||_2=(\mathbf{x}^\text{T}\mathbf{x})^{1/2}=(x_1^2+\cdots+x_n^2)^{1/2}$</li>
+      <li>无穷范数：$||x||_\infty=\max\{|x_1|,\cdots,|x_n|\}$</li>
+      <li>$L_p$范数：$||x||_p=(|x_1|^p+\cdots+|x_n|^p)^{1/p}$</li>
+    </ul>
+
+    <h3>矩阵范数</h3>
+
+    <p>矩阵$A\in\mathbb{R}^{n\times n}$，向量$x\in\mathbb{R}^n$，则矩阵范数$||A||$满足：</p>
+
+    <ul>
+      <li>$||A||\geq 0$，且$||A||=0$的充要条件是$A=0$</li>
+      <li>$||\alpha A||=|\alpha|\cdot||A||,\forall\alpha\in\mathbb{R}$</li>
+      <li>$||A+B||\leq||A||+||B||$</li>
+      <li>$||AB||\leq||A||\cdot||B||$</li>
+      <li>$||Ax||\leq||A||\cdot||x||$</li>
+    </ul>
+
+    <p>常用矩阵范数</p>
+
+    <ul>
+      <li>$p$范数：$||A||_p=(\sum_{i=1}^m\sum_{j=1}^n|a_{ij}|^p)^{1/p}$</li>
+      <li>$1$范数：$||A||_1=((\sum_{i=1}^m\sum_{j=1}^n|a_{ij}|)$</li>
+      <li>Frobenius范数：$||A||_F=((\sum_{i=1}^m\sum_{j=1}^n|a_{ij}|^2)^{1/2}$</li>
+      <li>谱范数（2-算子范数）：$||A||_2=\sqrt{\lambda_{\text{max}}(A^\text{T}A)}$，其中$\lambda_{\text{max}}(A^\text{T}A)$表示$A^\text{T}A$的最大特征值</li>
+    </ul>
+
+    <h3>向量诱导的矩阵范数</h3>
+
+    <p>设$||.||$是$\mathbb{R}^n$上的一个任意范数，则对任意$A\in\mathbb{R}^{n\times n}$满足</p>
+
+    <div>
+      $$
+      ||A||=\max_{x\neq 0}\dfrac{||Ax||}{||x||}=\max_{||x||=1}||Ax||
+      $$
+    </div>
+
+    <p>则称$||.||$为由向量$x$诱导出来的范数，诱导范数</p>
+
+    <h2>梯度和方向导数</h2>
+
+    <h3>梯度</h3>
+
+    <p>梯度算子$\nabla$，记$n$元函数的梯度为偏导数构成的向量，即</p>
+
+    <div>
+      $$
+      \begin{align*}
+      & \nabla=\dfrac{\partial}{\partial x_1}\vec{e}_1+\dfrac{\partial}{\partial x_2}\vec{e}_2+\cdots+\dfrac{\partial}{\partial x_n}\vec{e}_n \\
+      & 
+      \begin{aligned}
+      \nabla f(x_1,x_2,\cdots,x_n) & = \dfrac{\partial f}{\partial x_1}\vec{e}_1+\dfrac{\partial f}{\partial x_2}\vec{e}_2+\cdots+\dfrac{\partial f}{\partial x_n}\vec{e}_n \\
+      & = \left[\dfrac{\partial f}{\partial x_1},\dfrac{\partial f}{\partial x_2},\cdots,\dfrac{\partial f}{\partial x_n}\right] \\
+      & = [f_{x_1}, f_{x_2},\cdots,f_{x_n}]
+      \end{aligned}
+      \end{align*}
+      $$
+    </div>
+
+    <h3>方向余弦</h3>
+
+    <p>设向量$\mathbf{a}=(x,y,z)$，则$\cos\alpha=\dfrac{x}{|\mathbf{a}|},\cos\beta=\dfrac{y}{|\mathbf{a}|},\cos\gamma=\dfrac{z}{|\mathbf{a}|}$，得$(\cos\alpha,\cos\beta,\cos\gamma)=(\dfrac{x}{|\mathbf{a}|},\dfrac{y}{|\mathbf{a}|},\dfrac{z}{|\mathbf{a}|})=\dfrac{1}{|\mathbf{a}|}(x,y,z)=\dfrac{\mathbf{a}}{|\mathbf{a}|}=e_{\mathbf{a}}$，向量$\mathbf{a}$的方向余弦即为：$\cos\alpha,\cos\beta,\cos\gamma$，非零向量$\mathbf{a}$与三条坐标轴的夹角$\alpha,\beta,\gamma$称为向量$\mathbf{a}$的方向角</p>
+
+    <h3>方向导数</h3>
+
+    <p>方向导数是一个数，反映函数$f(x,y)$在点$p_0=(x_0,y_0)$沿方向$l$的变化率，即</p>
+
+    <div>
+      $$
+      \dfrac{\partial f}{\partial l}\Big|_{p_0}=\lim_{t\to 0}\dfrac{f(z+tl)-f(z)}{t}
+      $$
+    </div>
+
+    <p>若函数$u=f(x,y,z)$在点$(x_0,y_0,z_0)$处可微，则函数$f(x,y,z)$在点$(x_0,y_0,z_0)$处沿任一方向$\vec{l}=(\cos\alpha,\cos\beta,\cos\gamma)$的方向导数存在，且为</p>
+
+    <div>
+      $$
+      \begin{align*}
+      \dfrac{\partial u}{\partial l}& =\dfrac{\partial u}{\partial x}\cos\alpha+\dfrac{\partial u}{\partial y}\cos\beta+\dfrac{\partial u}{\partial z}\cos\gamma \\
+      & = \nabla u\cdot \vec{l}= < \nabla u,\vec{l} >
+      \end{align*}
+      $$
+    </div>
+
+    <p>沿梯度方向时，方向导数最大</p>
+
+    <h2>向量与微分算子应用</h2>
+
+    <p>像素坐标系：坐标原点位于左上角，数据先沿$x$增加，再沿$y$轴增加，$x$为纵向，$y$为横向，坐标轴为整数，matlab中原点为$(1,1)$</p>
+
+    <h3>像素间的关系与距离</h3>
+
+    <p>像素$p(m,n)$的相邻像素：</p>
+
+    <ul>
+      <li>$4$邻域$N_4(p):(m+1,n),(m-1,n),(m,n+1),(m,n-1)$</li>
+      <li>对角邻域：$N_D(p):(m+1,n+1),(m+1,n-1),(m-1,n+1),(m-1,n-1)$</li>
+      <li>$8$邻域：$N_8(p):N_4(p)+N_D(p)$</li>
+    </ul>
+
+    <h3>像素间距离的度量：</h3>
+
+    <p>像素$P(x,y),Q(s,t)$之间的距离</p>
+
+    <ul>
+      <li>欧氏距离：$D_e(p,q)=[(x-s)^2+(y-t)^2]^{1/2}$</li>
+      <li>$D_4$距离（城市街区距离）：$D_4(p,q)=|x-s|+|y-t|$</li>
+      <li>$D_8$距离（棋盘距离）：$D_8(p,q)=\max\{|x-s|,|y-t|\}$</li>
+    </ul>
+
+    <h3>图像中梯度算子离散</h3>
+
+    <p>大小为$M\times N$的数字图像定义：$f_{ij}=f(x_i,y_j),\quad i=1,\cdots,M,\quad j=1,\cdots,N$</p>
+
+    <p>其梯度定义如下：$\nabla f(x,y)=(\nabla_x f,\nabla_y f)=(\dfrac{\partial f}{\partial x},\dfrac{\partial f}{\partial y})$</p>
+
+    <p>一阶向前差分逼近：</p>
+    <div>
+      $$
+      \left(\dfrac{\partial f}{\partial x}\right)_{ij}=\lim_{\Delta x\rightarrow 0}\dfrac{f(x+\Delta x,y)-f(x,y)}{\Delta x}=f(x_{i+1},y_j)-f(x_i,y_j)=f_{i+1,j}-f_{i,j}
+      $$
+    </div>
+
+    <p>一阶向后差分逼近：</p>
+    <div>
+      $$
+      \left(\dfrac{\partial f}{\partial x}\right)_{ij}=\lim_{\Delta x\rightarrow 0}\dfrac{f(x+\Delta x,y)-f(x,y)}{\Delta x}=f(x_i,y_j)-f(x_{i-1},y_j)=f_{i,j}-f_{i-1,j}
+      $$
+    </div>
+
+    <p>大小为$M\times N$的数字图像梯度定义：$\nabla f=((\nabla f)_{ij})=((\nabla_x f,\nabla_y f)_{ij})=[(f_{i+1,j}-f_{ij},f_{i,j+1}-f_{ij})],\quad i=2,\cdots,M-1, \quad j=2,\cdots,N-1$</p>
+
+    <p>边界上的梯度：可将边界等值延拓，也可周期延拓</p>
+
+    <p>原图像：</p>
+
+    <table border="1" cellspacing="0" cellpadding="8">
+      <tbody>
+        <tr><td>2</td><td>4</td><td>6</td><td>8</td><td>3</td></tr>
+        <tr><td>3</td><td>1</td><td>4</td><td>7</td><td>9</td></tr>
+        <tr><td>7</td><td>8</td><td>6</td><td>4</td><td>2</td></tr>
+        <tr><td>4</td><td>9</td><td>7</td><td>3</td><td>5</td></tr>
+      </tbody>
+    </table>
+
+    <p>周期延拓后：</p>
+
+    <table border="1" cellspacing="0" cellpadding="8">
+      <tbody>
+        <tr><td><span style="color:red">5</span></td><td><span style="color:red">4</span></td><td><span style="color:red">9</span></td><td><span style="color:red">7</span></td><td><span style="color:red">3</span></td><td><span style="color:red">5</span></td><td><span style="color:red">4</span></td></tr>
+        <tr><td><span style="color:red">3</span></td><td>2</span></td><td>4</td><td>6</td><td>8</td><td>3</td><td><span style="color:red">2</span></td></tr>
+        <tr><td><span style="color:red">9</span></td><td>3</span></td><td>1</td><td>4</td><td>7</td><td>9</td><td><span style="color:red">3</span></td></tr>
+        <tr><td><span style="color:red">2</span></td><td>7</span></td><td>8</td><td>6</td><td>4</td><td>2</td><td><span style="color:red">7</span></td></tr>
+        <tr><td><span style="color:red">5</span></td><td>4</span></td><td>9</td><td>7</td><td>3</td><td>5</td><td><span style="color:red">4</span></td></tr>
+        <tr><td><span style="color:red">3</span></td><td><span style="color:red">2</span></td><td><span style="color:red">4</span></td><td><span style="color:red">6</span></td><td><span style="color:red">8</span></td><td><span style="color:red">3</span></td><td><span style="color:red">2</span></td></tr>
+      </tbody>
+    </table>
+
+    <p>等值延拓后：</p>
+
+    <table border="1" cellspacing="0" cellpadding="8">
+      <tbody>
+        <tr><td><span style="color:red">2</span></td><td><span style="color:red">2</span></td><td><span style="color:red">4</span></td><td><span style="color:red">6</span></td><td><span style="color:red">8</span></td><td><span style="color:red">3</span></td><td><span style="color:red">3</span></td></tr>
+        <tr><td><span style="color:red">2</span></td><td>2</span></td><td>4</td><td>6</td><td>8</td><td>3</td><td><span style="color:red">3</span></td></tr>
+        <tr><td><span style="color:red">3</span></td><td>3</span></td><td>1</td><td>4</td><td>7</td><td>9</td><td><span style="color:red">9</span></td></tr>
+        <tr><td><span style="color:red">7</span></td><td>7</span></td><td>8</td><td>6</td><td>4</td><td>2</td><td><span style="color:red">2</span></td></tr>
+        <tr><td><span style="color:red">4</span></td><td>4</span></td><td>9</td><td>7</td><td>3</td><td>5</td><td><span style="color:red">5</span></td></tr>
+        <tr><td><span style="color:red">4</span></td><td><span style="color:red">4</span></td><td><span style="color:red">9</span></td><td><span style="color:red">7</span></td><td><span style="color:red">3</span></td><td><span style="color:red">5</span></td><td><span style="color:red">5</span></td></tr>
+      </tbody>
+    </table>
+
+    <p>$\nabla_x f$的维度：$M\times N$，$\nabla_y f$的维度：$M\times N$，$\nabla f$的维度：$M\times N\times 2$</p>
+
+    <h3>图像中二阶微分算子计算</h3>
+
+    <p>若函数$f(x,y)$二阶可微，其一阶微分为：$g=\nabla f=(f_x,f_y)=(g_1,g_2)$</p>
+
+    <p>对应的二阶微分为：$\nabla g=\begin{bmatrix} g_{1x} & g_{2x} \\ g_{1y} & g_{2y} \end{bmatrix}=\begin{bmatrix} f_{xx} & f_{xy} \\ f_{yx} & f_{yy} \end{bmatrix}$</p>
+
+    <p>又称为Hessian矩阵</p>
+
+    <h3>散度算子div</h3>
+
+    <p>散度算子：$\text{div}(f)=\nabla\cdot f=< \nabla,f >$</p>
+
+    <p>给定函数$f(x,y)=(f_1,f_2), \quad \text{div}(f)=\nabla\cdot f=\left(\dfrac{\partial}{\partial x},\dfrac{\partial}{\partial y}\right)\cdot(f_1,f_2)=\dfrac{\partial f_1}{\partial x}+\dfrac{\partial f_2}{\partial y}$</p>
+
+    <h3>拉普拉斯算子(Laplace)</h3>
+
+    <p>给定函数$g(x,y)$，Laplace算子：$\Delta=\nabla\cdot\nabla=<\nabla,\nabla>$</p>
+
+    <p>$\Delta g=\nabla\cdot\nabla g=\left(\dfrac{\partial}{\partial x},\dfrac{\partial}{\partial y}\right)\cdot(g_x,g_y)=\text{div}(\nabla g)=g_{xx}+g_{yy}$</p>
+
+    <p>图像$f(x,y)$Laplace算子离散：向前差分-向后差分：（五点差分格式）</p>
+    <div>
+      $$
+      \begin{align*}
+        \Delta f &=f_{xx}+f_{yy} \\
+        &=(f_{i+1,j}-f{ij})-(f_{ij}-f_{i-1,j})+(f_{i,j+1}-f_{ij})-(f_{ij}-f_{i,j-1}) \\
+        &=f_{i+1,j}+f_{i-1,j}+f_{i,j+1}+f_{i,j-1}-4f_{ij}
+      \end{align*}
+      $$
+    </div>
+
+    <p>$\Delta f$：离散后的$\Delta$算子生成矩阵$L$</p>
+
+    <div>
+      $$
+      \Delta f=[(\Delta f)_{ij}]=L
+      \begin{bmatrix}
+        f_{11} \\ f_{12} \\ \vdots \\ f_{M,N}
+      \end{bmatrix}
+      $$
+    </div>
+
+    <p>$L$为Laplace矩阵</p>
+
+    <h3>图像中Laplace矩阵：等值边界条件</h3>
+
+    <table border="1" cellspacing="0" cellpadding="8">
+      <tbody>
+        <tr><td><span style="color:red">1</span></td><td><span style="color:red">1</span></td><td><span style="color:red">2</span></td><td><span style="color:red">3</span></td><td><span style="color:red">3</tr>
+        <tr><td><span style="color:red">1</span></td><td>1</td><td>2</td><td>3</td><td><span style="color:red">3</span></td></tr>
+        <tr><td><span style="color:red">4</span></td><td>4</td><td>5</td><td>6</td><td><span style="color:red">6</span></td></tr>
+        <tr><td><span style="color:red">7</span></td><td>7</td><td>8</td><td>9</td><td><span style="color:red">9</span></td></tr>
+        <tr><td><span style="color:red">7</span></td><td><span style="color:red">7</span></td><td><span style="color:red">8</span></td><td><span style="color:red">9</span></td><td><span style="color:red">9</tr>
+      </tbody>
+    </table>
+
+    <div>
+      $$
+      \Delta f=
+      \begin{bmatrix}
+        -4\times f_1+f_2+f_4+f_1+f_1 \\
+        -4\times f_2+f_1+f_3+f_5+f_2 \\
+        -4\times f_3+f_2+f_6+f_3+f_3 \\
+        -4\times f_4+f_1+f_7+f_5+f_4 \\
+        -4\times f_5+f_2+f_4+f_8+f_6 \\
+        -4\times f_6+f_5+f_3+f_9+f_6 \\
+        -4\times f_7+f_8+f_4+f_7+f_7 \\
+        -4\times f_8+f_5+f_7+f_9+f_8 \\
+        -4\times f_9+f_8+f_6+f_9+f_9
+      \end{bmatrix}=
+      \begin{bmatrix}
+        -2 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+        1 & -3 & 1 & 0 & 1 & 0 & 0 & 0 & 0 \\
+        0 & 1 & -2 & 0 & 0 & 1 & 0 & 0 & 0 \\
+        1 & 0 & 0 & -3 & 1 & 0 & 1 & 0 & 0 \\
+        0 & 1 & 0 & 1 & -4 & 1 & 0 & 1 & 0 \\
+        0 & 0 & 1 & 0 & 1 & -3 & 0 & 0 & 1 \\
+        0 & 0 & 0 & 1 & 0 & 0 & -2 & 1 & 0 \\
+        0 & 0 & 0 & 0 & 1 & 0 & 1 & -3 & 1 \\
+        0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & -2
+      \end{bmatrix}
+      \begin{bmatrix}
+        f_1 \\ f_2 \\ f_3 \\ f_4 \\ f_5 \\ f_6 \\ f_7 \\ f_8 \\ f_9
+      \end{bmatrix}
+      $$
+    </div>
+
+    <p>图像Laplace矩阵定义：$L=D+W$，$D=[d_{ij}]$为对角矩阵，$W=[w_{ij}]$为权重矩阵，满足对称矩阵$d_{ij}+\sum{k\in N(i)} w_{ik}=0$，每行非0元素相加等于0，$N(i)$为与第$i$个结点相连的点</p>
+
+    <p>Laplace矩阵的性质：</p>
+
+    <ul>
+      <li>对称矩阵</li>
+      <li>每一行非0元素相加等于0</li>
+      <li>主对角线上元素值等于负的非主对角线元素之和</li>
+    </ul>
+
+    <h2>混合运算</h2>
+
+    <h3>向量运算</h3>
+
+    <p>
+      向量默认列向量，
+      向量的模长：$||\mathbf{a}||_2^2=< \mathbf{a},\mathbf{a} >=\mathbf{a}^\text{T}\mathbf{a}$，
+      向量间的距离：$||\mathbf{a}-\mathbf{b}||_2^2=< \mathbf{a}-\mathbf{b},\mathbf{a}-\mathbf{b} >=(\mathbf{a}-\mathbf{b})^\text{T}(\mathbf{a}-\mathbf{b})$
+    </p>
+
+    <h3>内积函数梯度</h3>
+
+    <p>$y=\omega^\text{T}\mathbf{x}$，其自变量为$\mathbf{x}$，将它展开写成求和形式为：</p>
+
+    <div>
+      $$
+      y=\sum_{i=1}^n\omega_ix_i
+      $$
+    </div>
+
+    <p>函数对每个自变量的偏导数为$\dfrac{\partial y}{\partial x_i}=\omega_i,\quad \dfrac{\text{d}\mathbf{x}^\text{T}\mathbf{y}}{\text{d}\mathbf{x}}=\dfrac{\text{d}\mathbf{y}^\text{T}\mathbf{x}}{\text{d}\mathbf{x}}=\mathbf{y}$</p>
+
+    <p>例：对于$y=2x_1-3x_2+4x_3=
+      \begin{bmatrix} 2 & -3 & 4 \end{bmatrix}
+      \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}, \quad \nabla y = 
+      \begin{bmatrix} 2 \\ -3 \\ 4 \end{bmatrix}$
+    </p>
+
+    <h3>二次函数的梯度</h3>
+
+    <div>
+      $$
+      \begin{align*}
+      & \mathbf{x}\in\mathbb{R}^n,\mathbf{A}\in\mathbb{R}^{n\times n},y=\mathbf{x}^\text{T}\mathbf{A}\mathbf{x}, \\
+      & y=< \mathbf{x},\mathbf{A}\mathbf{x} > = < \mathbf{x},w(\mathbf{x}) > =w(\mathbf{x})^\text{T}\mathbf{x} \\
+      & \begin{aligned}
+      \nabla y & = w(\mathbf{x})+(\nabla w(\mathbf{x}))^\text{T}\mathbf{x} \\
+              & = (\mathbf{A}\mathbf{x})+\mathbf{A}^\text{T}\mathbf{x} \\
+              & = (\mathbf{A}+\mathbf{A}^\text{T})\mathbf{x}
+      \end{aligned}
+      \end{align*}
+      $$
+    </div>
+
+    <h3>实值函数$f(\mathbf{X})$对变元$\mathbf{X}\in\mathbb{R}^{m\times n}$的导数</h3>
+
+    <div>
+      $$
+      \begin{align*}
+      & f(\mathbf{X}),\mathbf{X}_{m\times n}=(x_{ij})_{i=1,j=1}^{m,n} \\
+      & 
+      \begin{aligned}
+      \nabla_\mathbf{X}f(\mathbf{X})& =\dfrac{\partial f(\mathbf{X})}{\partial \mathbf{X}}=\left(\dfrac{\partial f(\mathbf{X})}{\partial \mathbf{X}}\right)_{m\times n} \\
+      & =\begin{bmatrix}
+        \dfrac{\partial f(\mathbf{X})}{\partial x_{11}} & \dfrac{\partial f(\mathbf{X})}{\partial x_{12}} & \cdots & \dfrac{\partial f(\mathbf{X})}{\partial x_{1n}} \\[1.5em]
+        \dfrac{\partial f(\mathbf{X})}{\partial x_{21}} & \dfrac{\partial f(\mathbf{X})}{\partial x_{22}} & \cdots & \dfrac{\partial f(\mathbf{X})}{\partial x_{2n}} \\[1.5em]
+        \vdots & \vdots & \ddots & \vdots \\[1.5em]
+        \dfrac{\partial f(\mathbf{X})}{\partial x_{m1}} & \dfrac{\partial f(\mathbf{X})}{\partial x_{m2}} & \cdots & \dfrac{\partial f(\mathbf{X})}{\partial x_{mn}}
+        \end{bmatrix}
+      \end{aligned}
+      \end{align*}
+      $$
+    </div>
+
+    <p>运算法则</p>
+
+    <ul>
+      <li>线性法则：</li>
+      <div>
+        $$
+        \dfrac{\partial [c_1f(\mathbf{X})+c_2g(\mathbf{X})]}{\partial \mathbf{X}}=c_1\dfrac{\partial f(\mathbf{X})}{\partial \mathbf{X}}+c_2\dfrac{\partial g(\mathbf{X})}{\partial \mathbf{X}}
+        $$
+      </div>
+      <li>乘积法则：</li>
+      <div>
+        $$
+        \dfrac{\partial [f(\mathbf{X})g(\mathbf{X})]}{\partial \mathbf{X}}=f(\mathbf{X})\dfrac{\partial g(\mathbf{X})}{\partial \mathbf{X}}+g(\mathbf{X})\dfrac{\partial f(\mathbf{X})}{\partial \mathbf{X}}
+        $$
+      </div>
+      <li>商法则：</li>
+      <div>
+        $$
+        \dfrac{\partial\left[\dfrac{f(\mathbf{X})}{g(\mathbf{X})}\right]}{\partial \mathbf{X}}=\dfrac{g(\mathbf{X})\dfrac{\partial f(\mathbf{X})}{\partial \mathbf{X}}-f(\mathbf{X})\dfrac{\partial g(\mathbf{X})}{\partial \mathbf{X}}}{g(\mathbf{X})^2}
+        $$
+      </div>
+    </ul>
+
+    <p>常用公式：</p>
+
+    <p>
+        $
+        \begin{aligned}
+        & \mathbf{a}=(a_1,a_2,\cdots,a_n)^\text{T},\mathbf{b}=(b_1,b_2,\cdots,b_n)^\text{T} \\[1em]
+        & \dfrac{\partial(\mathbf{a}^\text{T}\mathbf{X}\mathbf{b})}{\partial\mathbf{X}}=\mathbf{a}\mathbf{b}^\text{T} \\[1em]
+        & \dfrac{\partial(\mathbf{a}^\text{T}\mathbf{X}^\text{T}\mathbf{b})}{\partial\mathbf{X}}=\mathbf{b}\mathbf{a}^\text{T} \\[1em]
+        & \dfrac{\partial(\mathbf{a}^\text{T}\mathbf{X}\mathbf{X}^\text{T}\mathbf{b})}{\partial\mathbf{X}}=\mathbf{a}\mathbf{b}^\text{T}\mathbf{X}+\mathbf{b}\mathbf{a}^\text{T}\mathbf{X} \\[1em]
+        & \dfrac{\partial(\mathbf{a}^\text{T}\mathbf{X}^\text{T}\mathbf{X}\mathbf{b})}{\partial\mathbf{X}}=\mathbf{X}\mathbf{b}\mathbf{a}^\text{T}+\mathbf{X}\mathbf{a}\mathbf{b}^\text{T}
+        \end{aligned}$
+      </p>
+
+    <h3>矩阵的迹求梯度</h3>
+
+    <p>设$\mathbf{A},\mathbf{B}\in\mathbb{R}^{m\times n}$，</p>
+    
+    <p>
+      $
+      \begin{aligned}
+      & \nabla_\mathbf{X}\text{tr}(\mathbf{B}^\text{T}\mathbf{X})=
+        \mathbf{B},\quad \nabla_\mathbf{X}\text{tr}(\mathbf{X}^\text{T}\mathbf{A})=\mathbf{A} \\
+      & \nabla_\mathbf{X}\text{tr}(\mathbf{X}^\text{T}\mathbf{X})=2\mathbf{X} \\
+      & \nabla_\mathbf{X}\text{tr}(\mathbf{X}^\text{T}\mathbf{A}\mathbf{X})=(\mathbf{A}+\mathbf{A}^\text{T})\mathbf{X}
+      \end{aligned}$
+    </p>
+
+  <a class="back" href="../../../post.html">← 返回文章列表</a>
+</body>
+</html>
