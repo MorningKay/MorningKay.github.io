@@ -1,0 +1,15 @@
+{% assign current_lang = include.lang | default: page.lang | default: site.lang %}
+{% assign sorted_projects = site.projects | where: "lang", current_lang | sort: "importance" %}
+
+<ul class="compact-project-list">
+  {% for project in sorted_projects %}
+    <li class="compact-project-item">
+      <h3 class="compact-project-title">
+        <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
+      </h3>
+      <div class="compact-project-description">
+        {{ project.content | markdownify }}
+      </div>
+    </li>
+  {% endfor %}
+</ul>

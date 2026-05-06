@@ -1,0 +1,55 @@
+{% assign current_lang = page.lang | default: site.lang %}
+{% assign footer_home_page = site.pages | where: "lang_ref", "about" | where: "lang", current_lang | first %}
+{% assign author_name = footer_home_page.display_name %}
+{% if author_name == nil or author_name == '' %}
+  {% capture author_name -%}
+    {{ site.first_name -}}
+    {%- if site.middle_name %} {{ site.middle_name }}{% endif -%}
+    {%- if site.last_name %} {{ site.last_name }}{% endif -%}
+  {%- endcapture %}
+{% endif %}
+
+{% capture footer_contents %}
+  &copy; Copyright {{ site.time | date: '%Y' }}
+  {{ author_name }}. {{ site.footer_text }}
+  {% if site.impressum_path %}
+    <a href="{{ site.url }}{{ site.baseurl }}{{ site.impressum_path }}">Impressum</a>.
+  {% endif %}
+  {% if site.last_updated %}
+    Last updated: {{ 'now' | date: '%B %d, %Y' }}.
+  {% endif %}
+{% endcapture %}
+
+{% if site.footer_fixed %}
+  <footer class="fixed-bottom" role="contentinfo">
+    <div class="container mt-0">
+      {{ footer_contents }}
+      <button
+        type="button"
+        class="footer-easter-egg"
+        data-footer-easter-egg
+        aria-label="Decorative footer element"
+      >
+        •
+      </button>
+    </div>
+  </footer>
+{% else %}
+  <footer class="sticky-bottom mt-5" role="contentinfo">
+    {% if site.newsletter.enabled %}
+      {% include newsletter.liquid %}
+    {% endif %}
+
+    <div class="container">
+      {{ footer_contents }}
+      <button
+        type="button"
+        class="footer-easter-egg"
+        data-footer-easter-egg
+        aria-label="Decorative footer element"
+      >
+        •
+      </button>
+    </div>
+  </footer>
+{% endif %}
