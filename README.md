@@ -2,6 +2,8 @@
 
 This repository contains the personal bilingual academic homepage for **Yixin Ma / 麻奕鑫**, based on [multi-language-al-folio](https://github.com/george-gca/multi-language-al-folio) and the original [al-folio](https://github.com/alshedivat/al-folio) theme.
 
+Thanks to the maintainers of multi-language-al-folio and al-folio for providing the template foundation for this site.
+
 - Default language: English
 - Simplified Chinese version: `/zh/`
 - Current structure: single-page academic homepage in both languages
